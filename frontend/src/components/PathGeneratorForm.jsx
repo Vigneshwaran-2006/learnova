@@ -61,7 +61,7 @@ export default function PathGeneratorForm({ onSuccess, onLoadSample }) {
     setApiError('');
     setIsLoading(true);
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/generate-path', {
+      const response = await fetch('https://learnova-backend-2433.onrender.com/api/generate-path', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -98,7 +98,7 @@ export default function PathGeneratorForm({ onSuccess, onLoadSample }) {
       setApiError(
         err.message && !err.message.includes('fetch')
           ? err.message
-          : 'Backend connection failed. Please ensure the Learnova FastAPI server is running at http://127.0.0.1:8000.'
+          : 'Backend connection failed. Please ensure the Learnova FastAPI server is running at https://learnova-backend-2433.onrender.com.'
       );
     } finally {
       setIsLoading(false);

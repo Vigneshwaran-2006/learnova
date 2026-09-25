@@ -202,7 +202,7 @@ function App() {
     let isMounted = true;
     const check = async () => {
       try {
-        const res = await fetch('http://127.0.0.1:8000/api/health');
+        const res = await fetch('https://learnova-backend-2433.onrender.com/api/health');
         if (!isMounted) return;
         if (res.ok) {
           const d = await res.json();
