@@ -1,3 +1,4 @@
+import os
 from typing import Optional
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -11,14 +12,22 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Enable CORS for frontend development
+# Enable CORS for frontend (production + local development)
+_allowed_origins = [
+    "https://learnova-ivory.vercel.app",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:3000",
+]
+
+# Optionally extend via FRONTEND_URL environment variable (e.g. preview deployments)
+_extra_origin = os.environ.get("FRONTEND_URL", "").strip()
+if _extra_origin and _extra_origin not in _allowed_origins:
+    _allowed_origins.append(_extra_origin)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:3000",
-    ],
+    allow_origins=_allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
